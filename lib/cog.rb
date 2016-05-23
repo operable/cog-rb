@@ -13,7 +13,7 @@ require_relative 'cog/services/metadata'
 class Cog
   def self.bundle(name)
     bundle = Cog::Bundle.new(name)
-    yield bundle
+    yield bundle if block_given?
     bundle.run_command
   end
 end
