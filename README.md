@@ -1,8 +1,31 @@
-# Cog::Rb
+# cog-rb
 
-Welcome to your new gem! In this directory, you'll find the files you need to be able to package up your Ruby library into a gem. Put your Ruby code in the file `lib/cog/rb`. To experiment with that code, run `bin/console` for an interactive prompt.
+Simple, opinionated library for building Cog commands in Ruby.
 
-TODO: Delete this and the text above, and describe your gem
+## Usage
+
+First, create a file named `cog-command` at the top level of your project directory. This file should look something like the following, with `format` replaced with the name of your bundle:
+
+```ruby
+#!/usr/bin/env ruby
+
+# Make sure we're in the top-level directory for the command
+# since so many paths are relative.
+Dir.chdir(File.dirname(__FILE__))
+
+require 'bundler/setup'
+require 'cog'
+
+Cog.bundle('format')
+```
+
+This file will be the target `executable` for every command in your bundle. The library handles routing commands to the correct class based on the command name. Note: The permissions on this file must allow it to be run by your Relay.
+
+The class that implements your command should be named the same as your command and should be declared in a namespace named after your bundle within the `CogCmd` toplevel namespace. For instance, if you had a bundle named **test** and a command named **dump**, the class that implements the **dump** command would be called `CogCmd::Test::Dump`. The implementation for the command would live in `lib/cog_cmd/test/dump.rb` relative to the location of your `cog-command` script.
+
+## Examples
+
+See the [cog-bundles/format](https://github.com/cog-bundles/format) repository for an example of this library in action.
 
 ## Installation
 
@@ -19,18 +42,4 @@ And then execute:
 Or install it yourself as:
 
     $ gem install cog-rb
-
-## Usage
-
-TODO: Write usage instructions here
-
-## Development
-
-After checking out the repo, run `bin/setup` to install dependencies. You can also run `bin/console` for an interactive prompt that will allow you to experiment.
-
-To install this gem onto your local machine, run `bundle exec rake install`. To release a new version, update the version number in `version.rb`, and then run `bundle exec rake release`, which will create a git tag for the version, push git commits and tags, and push the `.gem` file to [rubygems.org](https://rubygems.org).
-
-## Contributing
-
-Bug reports and pull requests are welcome on GitHub at https://github.com/[USERNAME]/cog-rb.
 
