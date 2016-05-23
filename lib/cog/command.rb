@@ -22,7 +22,8 @@ class Cog
     end
 
     def step
-      ENV['COG_INVOCATION_STEP'].to_sym
+      step = ENV['COG_INVOCATION_STEP']
+      step.nil? ? nil : step.to_sym
     end
 
     def accumulate_input
