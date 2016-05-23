@@ -18,12 +18,10 @@ class Cog
     end
 
     def populate_options
-      options = []
+      return {} if ENV['COG_OPTS'].nil?
 
-      if !ENV["COG_OPTS"].nil?
-        ENV["COG_OPTS"].split(",")
-        Hash[options.map { |opt| [ opt, ENV["COG_OPT_#{opt.upcase}"] ]}]
-      end
+      options = ENV["COG_OPTS"].split(",")
+      Hash[options.map { |opt| [ opt, ENV["COG_OPT_#{opt.upcase}"] ]}]
     end
   end
 end
