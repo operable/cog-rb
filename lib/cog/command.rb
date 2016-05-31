@@ -18,7 +18,7 @@ class Cog
     end
 
     def config
-      @config ||= { input: @@input }
+      @config ||= { input: self.class.input }
     end
 
     def step
@@ -40,8 +40,9 @@ class Cog
       response.send
     end
 
-    def self.input(value)
-      @@input = value
+    def self.input(value=nil)
+      return @input if value.nil?
+      @input = value
     end
   end
 end
