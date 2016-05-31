@@ -39,7 +39,7 @@ class Cog
         STDOUT.flush
       end
 
-      def self.log(level, message)
+      def log(level, message)
         level = :info unless LOG_LEVELS.include?(:level)
         write "COGCMD_#{level.to_s.upcase}: #{message}"
       end
