@@ -4,16 +4,12 @@ class Cog
       VERSION = "1.0.0"
 
       class << self
-        def data(op, value)
-          { "op" => op.to_s, "value" => value }
-        end
-
         def accum(key, value)
-          post(path: key, data: data(:accum, value))
+          post(path: key, data: { "op" => "accum", "value" => value }.to_json)
         end
 
         def replace(key, value)
-          put(path: key, data: data(:replace, value))
+          put(path: key, data: value.to_s)
         end
       end
     end

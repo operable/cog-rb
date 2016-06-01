@@ -31,7 +31,7 @@ class Cog
     end
 
     def fetch_input
-      Cog::Services::Memory.get(memory_key)
+      JSON.parse(Cog::Services::Memory.get(memory_key))
     end
 
     def execute

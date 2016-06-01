@@ -38,7 +38,7 @@ class Cog
           http.request(req)
         end
 
-        JSON.parse(res.body)
+        res.body
       end
 
       def post(path: nil, data: nil)
@@ -59,7 +59,7 @@ class Cog
         uri = uri_for(path)
         http_class = (type == :post) ? Net::HTTP::Post : Net::HTTP::Put
         req = http_class.new(uri, headers)
-        req.body = data.to_json
+        req.body = data
 
         res = Net::HTTP.start(uri.host, uri.port) do |http|
           http.request(req)
