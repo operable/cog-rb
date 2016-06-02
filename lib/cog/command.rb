@@ -45,11 +45,15 @@ class Cog
       value = ENV[key]
 
       if required and value.nil?
-        STDERR.puts "Required environment variable #{key} missing!"
-        exit 1
+        fail("Required environment variable #{key} missing!")
       else
         value
       end
+    end
+
+    def fail(message)
+      STDERR.puts(message)
+      exit 1
     end
 
     def self.input(value=nil)
