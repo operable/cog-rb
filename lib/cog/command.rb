@@ -40,6 +40,18 @@ class Cog
       response.send
     end
 
+    def env_var(var, suffix: nil, required: true)
+      key = suffix ? "#{var}_#{suffix}" : var
+      value = ENV[key]
+
+      if required and value.nil?
+        STDERR.puts "Required environment variable #{key} missing!"
+        exit 1
+      else
+        value
+      end
+    end
+
     def self.input(value=nil)
       return @input if value.nil?
       @input = value
