@@ -40,7 +40,7 @@ class Cog
       response.send
     end
 
-    def env_var(var, suffix: nil, required: true, failure_message: nil)
+    def env_var(var, suffix: nil, required: false, failure_message: nil)
       key = suffix ? "#{var}_#{suffix.upcase}" : var
       value = ENV[key]
 
