@@ -41,7 +41,7 @@ class Cog
     end
 
     def env_var(var, suffix: nil, required: true, failure_message: nil)
-      key = suffix ? "#{var}_#{suffix}" : var
+      key = suffix ? "#{var}_#{suffix.upcase}" : var
       value = ENV[key]
 
       if required and value.nil?
