@@ -40,7 +40,7 @@ class Cog
       end
 
       def log(level, message)
-        level = :info unless LOG_LEVELS.include?(:level)
+        level = LOG_LEVELS.include?(level) ? level : :info
         write "COGCMD_#{level.to_s.upcase}: #{message}"
       end
     end
