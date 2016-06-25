@@ -13,15 +13,27 @@ class Cog
     end
 
     def send
-      return if content.nil?
+      unless @log_msgs.nil?
+        for log_msg in @log_msgs do
+          write log_msg
+        end
+      end
+
+      if content.nil?
+        write ""
+        return
+      end
 
       write "COG_TEMPLATE: #{@template}" unless @template.nil?
 
       case content.class
       when String
+        write ""
         write @content.join('').to_json
       else
-        write "JSON\n" + @content.to_json
+        write "JSON"
+        write ""
+        write @content.to_json
       end
     end
 
@@ -40,8 +52,9 @@ class Cog
       end
 
       def log(level, message)
+        @log_msgs ||= []
         level = LOG_LEVELS.include?(level) ? level : :info
-        write "COGCMD_#{level.to_s.upcase}: #{message}"
+        @log_msgs.push "COGCMD_#{level.to_s.upcase}: #{message}"
       end
     end
   end
