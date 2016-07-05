@@ -1,5 +1,5 @@
-
 require 'json'
+require 'cog/exceptions'
 
 class Cog
   class Command
@@ -38,6 +38,9 @@ class Cog
       accumulate_input if config[:input] == :accumulate
       run_command
       response.send
+    rescue Cog::Error => e
+      STDERR.puts(e.message)
+      exit 1
     end
 
     def env_var(var, suffix: nil, required: false, failure_message: nil)
@@ -53,8 +56,7 @@ class Cog
     end
 
     def fail(message)
-      STDERR.puts(message)
-      exit 1
+      raise Cog::Error, message
     end
 
     def self.input(value=nil)
