@@ -48,7 +48,7 @@ module Cog::RSpec::Setup
 
   let(:cog_env) { [] }
 
-  def run_command(args: [])
+  def run_command(args: [], options: {})
     ENV["COG_COMMAND"]       = command_name
     ENV["COG_INVOCATION_ID"] = invocation_id
     ENV["COG_SERVICES_ROOT"] = service_root
@@ -57,7 +57,11 @@ module Cog::RSpec::Setup
     ENV["COG_ARGC"] = args.size.to_s
     args.each_with_index{|arg, i| ENV["COG_ARGV_#{i}"] = arg.to_s}
 
-    # TODO: Set options as needed
+    # populate_options
+    if !options.keys.empty?
+      ENV["COG_OPTS"] = options.keys.join(",")
+      options.each{|k,v| ENV["COG_OPT_#{k.upcase}"] = v.to_s}
+    end
 
     # TODO: receive a single input on STDIN, multiple for :fetch_input
 
