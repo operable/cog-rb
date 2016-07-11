@@ -17,7 +17,7 @@ class Cog
     end
 
     def send
-      write "COGCMD_ACTION: stop" unless @aborted.nil?
+      write "COGCMD_ACTION: abort" unless @aborted.nil?
       write "COG_TEMPLATE: #{@template}" unless @template.nil?
 
       return if content.nil?
