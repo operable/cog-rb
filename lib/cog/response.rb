@@ -5,17 +5,22 @@ class Cog
   class Response
     LOG_LEVELS = [ :debug, :info, :warn, :err, :error ]
 
-    attr_accessor :template, :content
+    attr_accessor :template, :content, :aborted
 
     def []=(key, value)
       @content ||= {}
       @content[key] = value
     end
 
-    def send
-      return if content.nil?
+    def abort
+      @aborted = true
+    end
 
+    def send
+      write "COGCMD_ACTION: abort" unless @aborted.nil?
       write "COG_TEMPLATE: #{@template}" unless @template.nil?
+
+      return if content.nil?
 
       case content.class
       when String
