@@ -32,7 +32,8 @@ class Cog
 
       def get(path=nil)
         uri = uri_for(path)
-        res = Net::HTTP.start(uri.host, uri.port) do |http|
+        res = Net::HTTP.start(uri.host, uri.port,
+                              :use_ssl => uri.scheme == 'https') do |http|
           req = Net::HTTP::Get.new(uri)
           headers.each { |k,v| req[k] = v }
           http.request(req)
@@ -61,7 +62,8 @@ class Cog
         req = http_class.new(uri, headers)
         req.body = data
 
-        res = Net::HTTP.start(uri.host, uri.port) do |http|
+        res = Net::HTTP.start(uri.host, uri.port,
+                              :use_ssl => uri.scheme == 'https') do |http|
           http.request(req)
         end
       end
