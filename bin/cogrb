@@ -1,0 +1,16 @@
+#!/usr/bin/env ruby
+
+require 'rake'
+require 'cog/config'
+
+rake = Rake::Application.new
+rake.init('cogrb')
+Rake.application = rake
+
+rake.standard_exception_handling do
+  task_dir = File.join(File.dirname(__FILE__), '..', 'lib', 'tasks')
+  task_files = FileList.new(File.join(task_dir, '*.rake'))
+  task_files.each { |file| rake.add_import(file) }
+  rake.load_imports
+  rake.top_level
+end
