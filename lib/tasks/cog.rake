@@ -15,12 +15,12 @@ namespace :template do
       template.gsub!(/\.mustache\z/, '')
       template_content = File.read(file)
 
-      config['templates'][provider] ||= {}
-      prev_content = config['templates'][provider][template]
+      config['templates'][template] ||= {}
+      prev_content = config['templates'][template][provider]
 
       if template_content != prev_content
         puts "Updating bundle configuration for template #{provider}/#{template}."
-        config['templates'][provider][template] = template_content
+        config['templates'][template][provider] = template_content
       end
     end
 
