@@ -3,12 +3,12 @@ require "yaml"
 
 class Cog
   class Config
-    attr_reader :config_file, :data, :stale
+    attr_reader :config_file, :yaml, :data
 
     def initialize(config_file)
       @config_file = config_file
-      @data = YAML.load(File.read(@config_file))
-      @stale = false
+      @yaml = File.read(@config_file)
+      @data = YAML.load(@yaml)
     end
 
     def dump
@@ -21,7 +21,6 @@ class Cog
 
     def []=(key, value)
       @data[key.to_s] = value
-      @stale = true
     end
 
     def update_version(version = nil)
@@ -32,20 +31,21 @@ class Cog
         segments[-1] = segments.last.to_i + 1
         @data['version'] = segments.join('.')
       end
+
+      @data['version']
     end
 
     def save
-      return unless @stale
+      return unless self.stale?
 
       contents = YAML.dump(@data)
       File.open(@config_file, 'w') do |out|
         out.write(contents)
-        @stale = false
       end
     end
 
     def stale?
-      @stale
+      @yaml != YAML.dump(@data)
     end
   end
 end
