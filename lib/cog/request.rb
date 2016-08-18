@@ -27,7 +27,7 @@ class Cog
     # Returns the value of option env var specified by 'opt'. If option is
     # a list it will include a count. In that case we return an array of values.
     def opt_val(opt)
-      count = ENV["COG_OPT_#{opt.upcase}_COUNT"].to_i
+      count = ENV["COG_OPT_#{opt.upcase}_COUNT"]
       if count
         count.to_i.times.map { |i| ENV["COG_OPT_#{opt.upcase}_#{i}"] }
       else
