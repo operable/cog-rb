@@ -25,7 +25,7 @@ class Cog
     end
 
     def opt_val(opt)
-      count = ENV["COG_OPT_#{opt.upcase}_COUNT"]
+      count = ENV["COG_OPT_#{opt.upcase}_COUNT"].to_i
       if count
         (0..count).map { |i| ENV["COG_OPT_#{opt.upcase}_#{i}"] }
       else
