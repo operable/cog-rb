@@ -1,3 +1,7 @@
+## 0.1.13
+
+* Add support for list options
+
 ## 0.1.9
 
 * Fix service calls for SSL enabled Cog.
