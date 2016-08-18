@@ -1,3 +1,7 @@
+## 0.1.14
+
+* bugfix: options with scalar values were being ignored
+
 ## 0.1.13
 
 * Add support for list options
