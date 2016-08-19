@@ -1,3 +1,10 @@
+## 0.1.15
+
+* Adds a `cogrb` binary that wraps some helper tasks in `lib/tasks/cog.rake`:
+  * `cogrb template:update` - reads files in `templates/*` and updates bundle configuration file with contents
+  * `cogrb docker:build` - builds docker image using image/tag defined in bundle configuration file
+  * `cogrb docker:push` - pushes docker image using image/tag defined in bundle configuration file
+
 ## 0.1.14
 
 * bugfix: options with scalar values were being ignored

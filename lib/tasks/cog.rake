@@ -1,9 +1,10 @@
+config_file = FileList.new('config.y?ml').first
+config = Cog::Config.new(config_file)
+docker_image = config['docker'].nil? ? nil : "#{config['docker']['image']}:#{config['docker']['tag']}"
+
 namespace :template do
   desc "Update templates in configuration file"
   task :update do
-    config_file = FileList.new('config.y?ml').first
-    config = Cog::Config.new(config_file)
-
     puts "Current bundle configuration version is #{config['version']}."
 
     templates = FileList.new('templates/*/*.mustache')
@@ -31,5 +32,24 @@ namespace :template do
     else
       puts "No updated templates found. Configuration not updated."
     end
+  end
+end
+
+namespace :docker do
+  task :preflight do
+    if docker_image.nil?
+      puts "No Docker image defined in bundle configuration. Aborting."
+      exit(1)
+    end
+  end
+
+  desc "Build Docker image for current configuration file"
+  task :build => [ :preflight ] do
+    system("docker", "build", "-t", docker_image, ".")
+  end
+
+  desc "Push updated Docker image"
+  task :push => [ :build ] do
+    puts("docker", "push", docker_image)
   end
 end
