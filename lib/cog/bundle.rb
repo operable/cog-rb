@@ -35,6 +35,17 @@ class Cog
 
       target = @module.const_get(command_class).new
       target.execute
+    # Abort will end command execution and abort the pipeline
+    rescue Cog::Abort => msg
+      response = Cog::Response.new
+      response['body'] = msg
+      response.abort
+      response.send
+    # Stop will end command execution but the pipeline will continue
+    rescue Cog::Stop => msg
+      response = Cog::Response.new
+      response['body'] = msg
+      response.send
     end
   end
 end
