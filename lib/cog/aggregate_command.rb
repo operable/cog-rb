@@ -5,18 +5,9 @@ class Cog
 
     def initialize
       subcommands = self.class.const_get("SUBCOMMANDS")
+      subcommand = request.args.shift
 
-      unless subcommand = request.args.shift
-        no_subcommand_error
-        response.abort
-        return
-      end
-
-      unless subcommands.include?(subcommand)
-        unknown_subcommand_error(subcommand, subcommands)
-        response.abort
-        return
-      end
+      require_subcommand!(subcommand, subcommands)
 
       load_subcommands(subcommands)
 
@@ -24,7 +15,6 @@ class Cog
     end
 
     def run_command
-      return if response.aborted
       response.content = subcommand().run_command
     end
 
@@ -45,12 +35,22 @@ class Cog
       self.class.const_get(subcommand_class)
     end
 
-    def no_subcommand_error
-      raise Cog::Error, "Subcommand required", caller
+    def require_subcommand!(subcommand, subcommands, exception = Cog::Abort)
+      unless subcommand
+        raise exception, missing_subcommand_msg(subcommands)
+      end
+
+      unless subcommands.include?(subcommand)
+        raise exception, unknown_subcommand_msg(subcommand, subcommands)
+      end
     end
 
-    def unknown_subcommand_error(subcommand, subcommands)
-      raise Cog::Error, "Unknown subcommand '#{subcommand}'. Please specify one of '#{subcommands.join(', ')}'", caller
+    def missing_subcommand_msg(subcommands)
+      "Missing subcommand. Please specify one of '#{subcommands.join(', ')}'"
+    end
+
+    def unknown_subcommand_msg(subcommand, subcommands)
+      "Unknown subcommand '#{subcommand}'. Please specify one of '#{subcommands.join(', ')}'"
     end
   end
 end
