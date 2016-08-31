@@ -1,3 +1,9 @@
+## 0.2.0
+
+* Adds support for subcommands
+  * Adds a new parent class, `Cog::AggregateCommand`
+  * Adds a new parent class, `Cog::SubCommand`
+
 ## 0.1.15
 
 * Adds a `cogrb` binary that wraps some helper tasks in `lib/tasks/cog.rake`:
