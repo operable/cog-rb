@@ -1,3 +1,7 @@
+## 0.3.0
+
+* Reworks subcommand support to remove `Cog::SubCommand`. Subcommand implementations should inherit from `Cog::Command` instead.
+
 ## 0.2.0
 
 * Adds support for subcommands
