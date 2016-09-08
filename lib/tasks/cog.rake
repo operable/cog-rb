@@ -7,21 +7,21 @@ namespace :template do
   task :update do
     puts "Current bundle configuration version is #{config['version']}."
 
-    templates = FileList.new('templates/*/*.mustache')
+    templates = FileList.new('templates/*')
     return if templates.nil? || templates.size == 0
 
     config['templates'] ||= {}
     templates.each do |file|
       (provider, template) = file.split('/')[-2..-1]
-      template.gsub!(/\.mustache\z/, '')
+      template.gsub!(/\..*\z/, '')
       template_content = File.read(file)
 
       config['templates'][template] ||= {}
-      prev_content = config['templates'][template][provider]
+      prev_content = config['templates'][template]['body']
 
       if template_content != prev_content
         puts "Updating bundle configuration for template #{provider}/#{template}."
-        config['templates'][template][provider] = template_content
+        config['templates'][template]['body'] = template_content
       end
     end
 
