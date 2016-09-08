@@ -25,13 +25,20 @@ class Cog
 
     def load_commands
       @config[:commands].each do |command, config|
-        require File.join(@base_dir, 'lib', 'cog_cmd', @name, command)
+        command_path = command.split('-')
+        require File.join(@base_dir, 'lib', 'cog_cmd', @name, *command_path)
       end
     end
 
     def run_command
       command = ENV['COG_COMMAND']
+
+      # translate snake-case command names to camel case
       command_class = command.gsub(/(\A|_)([a-z])/) { $2.upcase }
+
+      # convert hyphenated command names into class hierarchies,
+      # e.g. template-list becomes Template::List.
+      command_class = command_class.split('-').map{ |seg| seg.capitalize }.join('::')
 
       target = @module.const_get(command_class).new
       target.execute
