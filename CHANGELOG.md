@@ -1,5 +1,6 @@
 ## 0.3.0
 
+* Updates `cogrb templates:update` task to use bundle configuration version 4 with the new template format from Cog 0.14. This task is no longer compatible with v3 and earlier configuration.
 * Reworks subcommand support to remove `Cog::SubCommand`. Subcommand implementations should inherit from `Cog::Command` instead.
 
 ## 0.2.0
