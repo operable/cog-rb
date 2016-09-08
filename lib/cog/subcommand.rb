@@ -1,16 +1,3 @@
 class Cog
-  class SubCommand
-
-    def initialize(request = nil)
-      @request = request
-    end
-
-    private
-
-    def request
-      @request
-    end
-
-  end
+  class SubCommand < Cog::Command; end
 end
-

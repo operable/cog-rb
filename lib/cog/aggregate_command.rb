@@ -15,13 +15,13 @@ class Cog
     end
 
     def run_command
-      response.content = subcommand().run_command
+      subcommand.execute
     end
 
     private
 
     def subcommand
-      @subcommand_inst ||= @subcommand_class.new(request)
+      @subcommand_inst ||= @subcommand_class.new
     end
 
     def load_subcommands(subcommands)
@@ -54,4 +54,3 @@ class Cog
     end
   end
 end
-
