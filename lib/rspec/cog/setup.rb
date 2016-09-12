@@ -39,7 +39,14 @@ module Cog::RSpec::Setup
   let(:command_name){ raise "Must supply a :command_name!" }
 
   let(:command) do
-    Object.const_get("CogCmd::#{bundle_name.capitalize}::#{command_name.capitalize}").new
+    # translate snake-case command names to camel case
+    command_class = command_name.gsub(/(\A|_)([a-z])/) { $2.upcase }
+
+    # convert hyphenated command names into class hierarchies,
+    # e.g. template-list becomes Template::List.
+    command_class = command_class.split('-').map{ |seg| seg.capitalize }.join('::')
+
+    Object.const_get("CogCmd::#{bundle_name.capitalize}::#{command_class}").new
   end
 
   let(:invocation_id) { SecureRandom.uuid }
