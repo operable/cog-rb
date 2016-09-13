@@ -73,7 +73,8 @@ module Cog::RSpec::Setup
     # TODO: receive a single input on STDIN, multiple for :fetch_input
 
     # Expose previous inputs on STDIN
-    expect(STDIN).to receive(:read).and_return(cog_env.to_json)
+    # We use allow because not all commands receive input
+    allow(STDIN).to receive(:read).and_return(cog_env.to_json)
 
     # Use allow because not all commands will need to do this
     allow(command).to receive(:fetch_input).and_return(cog_env)
