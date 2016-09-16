@@ -1,4 +1,3 @@
-
 require 'json'
 
 class Cog
@@ -8,7 +7,7 @@ class Cog
     def initialize
       @args = populate_args
       @options = populate_options
-      @input = JSON.parse(STDIN.read)
+      @input = (STDIN.tty?) ? {} : JSON.parse(STDIN.read)
     end
 
     private
