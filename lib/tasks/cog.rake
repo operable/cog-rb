@@ -52,4 +52,7 @@ namespace :docker do
   task :push => [ :build ] do
     system("docker", "push", docker_image)
   end
+
+  desc "Build and push updated Docker image"
+  task :release => [ :build, :push ]
 end
