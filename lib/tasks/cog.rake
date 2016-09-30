@@ -50,6 +50,6 @@ namespace :docker do
 
   desc "Push updated Docker image"
   task :push => [ :build ] do
-    puts("docker", "push", docker_image)
+    system("docker", "push", docker_image)
   end
 end

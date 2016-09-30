@@ -1,6 +1,9 @@
-## 0.3.0 - UNRELEASED/MASTER
+## 0.3.0
 
-* Updates `cogrb templates:update` task to use bundle configuration version 4 with the new template format from Cog 0.14. This task is no longer compatible with v3 and earlier configuration.
+**Note:** This version of `cog-rb` is not compatible with Cog versions lower than 0.14.
+
+* Updates `cogrb templates:update` task to use bundle configuration version 4.
+* Adds `cogrb docker:release` task to build and push an updated Docker image in one step.
 * Removes the subcommand support added in 0.2.0. We will revisit this in the future when subcommands are a first class feature in Cog. Attempting to support it at the command implementation level turned out to be unworkable.
 
 ## 0.2.0
