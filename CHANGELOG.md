@@ -1,6 +1,11 @@
+## 0.3.2
+
+The 0.3.1 release inadvertently omitted the `docker:release` task. This has been corrected.
+
 ## 0.3.1
 
 * Adds `cogrb docker:release` task to build and push an updated Docker image in one step.
+* Bugfix for `cogrb docker:push` task.
 
 ## 0.3.0 - Unreleased development version
 
