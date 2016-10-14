@@ -9,9 +9,15 @@ class Cog
     end
 
     def create_bundle_module
-      return if Object.const_defined?('CogCmd')
-      Object.const_set('CogCmd', Module.new)
-      CogCmd.const_set(@name.capitalize, Module.new)
+      module_name = @name.capitalize
+
+      Object.const_set('CogCmd', Module.new) unless Object.const_defined?('CogCmd')
+
+      if CogCmd.const_defined?(module_name)
+        CogCmd.const_get(module_name)
+      else
+        CogCmd.const_set(module_name, Module.new)
+      end
     end
 
     def command_instance(command_name)
