@@ -1,4 +1,4 @@
-config_file = FileList.new('config.y?ml').first
+config_file = FileList.new("config.yml", "config.yaml").first
 config = Cog::Config.new(config_file)
 docker_image = config['docker'].nil? ? nil : "#{config['docker']['image']}:#{config['docker']['tag']}"
 
