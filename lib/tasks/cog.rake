@@ -1,10 +1,13 @@
-config_file = FileList.new("config.yml", "config.yaml").first
+config_file = FileList.new("config.y*ml").first
 config = Cog::Config.new(config_file)
 docker_image = config['docker'].nil? ? nil : "#{config['docker']['image']}:#{config['docker']['tag']}"
 
 namespace :template do
   desc "Update templates in configuration file"
-  task :update do
+  task :update do |t, args|
+    puts args.join(",")
+    exit
+
     puts "Current bundle configuration version is #{config['version']}."
 
     templates = FileList.new('templates/*')
