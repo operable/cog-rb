@@ -1,3 +1,8 @@
+## 0.3.3
+
+* Bugfix to allow rspec support to work with current Cog::Bundle API
+* Bugfix to skip creation of intermediate modules in the command hierarchy if they are already defined
+
 ## 0.3.2
 
 The 0.3.1 release inadvertently omitted the `docker:release` task. This has been corrected.
