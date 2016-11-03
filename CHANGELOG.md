@@ -1,3 +1,7 @@
+## 0.3.4
+
+* Bugfix for rspec tests for commands that take a single input
+
 ## 0.3.3
 
 * Bugfix to allow rspec support to work with current Cog::Bundle API
