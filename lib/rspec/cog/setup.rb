@@ -63,11 +63,12 @@ module Cog::RSpec::Setup
       options.each{|k,v| ENV["COG_OPT_#{k.upcase}"] = v.to_s}
     end
 
-    # TODO: receive a single input on STDIN, multiple for :fetch_input
+    # TODO: receive a single input on request(:input) and
+    #       multiple for :fetch_input
 
-    # Expose previous inputs on STDIN
+    # Expose previous inputs on request.input
     # We use allow because not all commands receive input
-    allow(STDIN).to receive(:read).and_return(cog_env.to_json)
+    allow(command.request).to receive(:input).and_return(cog_env)
 
     # Use allow because not all commands will need to do this
     allow(command).to receive(:fetch_input).and_return(cog_env)
