@@ -1,3 +1,7 @@
+## 0.3.5
+
+* Bugfix for "warning: toplevel constant RSpec referenced by Cog::RSpec"
+
 ## 0.3.4
 
 * Bugfix for rspec tests for commands that take a single input
