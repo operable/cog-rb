@@ -33,20 +33,13 @@ module Cog::RSpec::Setup
     # This is `let!` instead of `let` because this call actually
     # *creates* the bundle module that our commands live in; we want
     # to ensure that this gets called before we start doing anything else
-    Cog::Bundle.new(bundle_name, base_dir: base_dir, config_file: config_file)
+    Cog::Bundle.new(bundle_name, base_dir: base_dir)
   end
 
   let(:command_name){ raise "Must supply a :command_name!" }
 
   let(:command) do
-    # translate snake-case command names to camel case
-    command_class = command_name.gsub(/(\A|_)([a-z])/) { $2.upcase }
-
-    # convert hyphenated command names into class hierarchies,
-    # e.g. template-list becomes Template::List.
-    command_class = command_class.split('-').map{ |seg| seg.capitalize }.join('::')
-
-    Object.const_get("CogCmd::#{bundle_name.capitalize}::#{command_class}").new
+    bundle.command_instance(command_name)
   end
 
   let(:invocation_id) { SecureRandom.uuid }
