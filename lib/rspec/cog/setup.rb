@@ -62,7 +62,20 @@ class Cog
         # populate_options
         if !options.keys.empty?
           ENV["COG_OPTS"] = options.keys.join(",")
-          options.each{|k,v| ENV["COG_OPT_#{k.upcase}"] = v.to_s}
+
+          options.each do |key, value|
+            name = key.upcase
+
+            if value.is_a?(Enumerable)
+              ENV["COG_OPT_#{name}_COUNT"] = value.count.to_s
+
+              value.each_with_index do |v, i|
+                ENV["COG_OPT_#{name}_#{i}"] = v
+              end
+            else
+              ENV["COG_OPT_#{name}"] = value.to_s
+            end
+          end
         end
 
         # TODO: receive a single input on request(:input) and
