@@ -38,16 +38,16 @@ class Cog
       command = ENV['COG_COMMAND']
       target = command_instance(command)
       target.execute
-    rescue Cog::Abort => msg
+    rescue Cog::Abort => exception
       # Abort will end command execution and abort the pipeline
       response = Cog::Response.new
-      response['body'] = msg
+      response.content = exception.message
       response.abort
       response.send
-    rescue Cog::Stop => msg
+    rescue Cog::Stop => exception
       # Stop will end command execution but the pipeline will continue
       response = Cog::Response.new
-      response['body'] = msg
+      response['body'] = exception.message
       response.send
     end
 
