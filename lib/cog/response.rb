@@ -17,16 +17,16 @@ class Cog
     end
 
     def send
-      write "COGCMD_ACTION: abort" unless @aborted.nil?
-      write "COG_TEMPLATE: #{@template}" unless @template.nil?
+      write "COGCMD_ACTION: abort" if aborted
+      write "COG_TEMPLATE: #{@template}" if @template
 
       return if content.nil?
 
-      case content.class
+      case content
       when String
-        write @content.join('').to_json
+        write content
       else
-        write "JSON\n" + @content.to_json
+        write "JSON\n" + content.to_json
       end
     end
 
