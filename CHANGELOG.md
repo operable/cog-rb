@@ -1,4 +1,4 @@
-## 0.4.0: Unreleased
+## 0.4.0
 
 * Add exception handling support. You can now define a regular expression and a
   block to be called when an exception whose class matches the pattern is
