@@ -1,3 +1,18 @@
+## 0.4.0: Unreleased
+
+* Add exception handling support. You can now define a regular expression and a
+  block to be called when an exception whose class matches the pattern is
+  received. This should generally be defined in your `cog-command`. The block
+  will be called with the exception and `Cog::Command` instance that was
+  executing. Exceptions that are not matched by a pattern will be handled
+  normally. Here's an example:
+
+  ```
+  Cog.error_handler.add(/Aws::.*/) do |exception, command|
+    Cog.return_error("#{command.name} error: #{exception.message}")
+  end
+  ```
+
 ## 0.3.5
 
 * Bugfix for "warning: toplevel constant RSpec referenced by Cog::RSpec"

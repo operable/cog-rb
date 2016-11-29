@@ -5,6 +5,10 @@ class Cog
   class Command
     attr_writer :memory_key, :config
 
+    def name
+      ENV['COG_COMMAND']
+    end
+
     def request
       @request ||= Cog::Request.new
     end
