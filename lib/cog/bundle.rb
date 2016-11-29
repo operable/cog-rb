@@ -20,6 +20,10 @@ class Cog
       end
     end
 
+    def command
+      @command ||= command_instance(ENV['COG_COMMAND'])
+    end
+
     def command_instance(command_name)
       command_path = command_name.split('-')
       require File.join(@base_dir, 'lib', 'cog_cmd', @name, *command_path)
@@ -35,9 +39,7 @@ class Cog
     end
 
     def run_command
-      command = ENV['COG_COMMAND']
-      target = command_instance(command)
-      target.execute
+      command.execute
     rescue Cog::Abort => exception
       # Abort will end command execution and abort the pipeline
       response = Cog::Response.new
