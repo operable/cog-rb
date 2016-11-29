@@ -14,10 +14,11 @@ class Cog::ExceptionHandler
       if pattern.match(exception.class.to_s)
         log_exception(exception, command)
         handlers[pattern].call(exception, command)
-      else
-        raise exception
+        return
       end
     end
+
+    raise exception
   end
 
   private
