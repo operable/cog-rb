@@ -38,7 +38,7 @@ class Cog
     def save
       return unless self.stale?
 
-      contents = YAML.dump(@data)
+      contents = YAML.dump(@data, { :line_width => -1})
       File.open(@config_file, 'w') do |out|
         out.write(contents)
       end
