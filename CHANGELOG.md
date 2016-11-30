@@ -1,3 +1,6 @@
+## 0.4.2
+
+* Minor change to `cogrb template:update` to remove line wrapping of values.
 
 ## 0.4.1
 
