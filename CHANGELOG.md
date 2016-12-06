@@ -1,3 +1,9 @@
+## 0.4.3
+
+* Memoize Cog::Request.input as a class variable so that we don't try
+  to read STDIN more than once if we initialize request more than once
+  for any reason.
+
 ## 0.4.2
 
 * Minor change to `cogrb template:update` to remove line wrapping of values.
