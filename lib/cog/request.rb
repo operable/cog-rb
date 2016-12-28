@@ -2,18 +2,15 @@ require 'json'
 
 class Cog
   class Request
-    attr_reader :options, :args
+    attr_reader :options, :args, :input
 
     def initialize
       @args = populate_args
       @options = populate_options
+      @input = (STDIN.tty?) ? {} : JSON.parse(STDIN.read)
     end
 
     private
-
-    def input
-      @@input = (STDIN.tty?) ? {} : JSON.parse(STDIN.read)
-    end
 
     def populate_args
       (0 .. (ENV['COG_ARGC'].to_i - 1)).map { |n| ENV["COG_ARGV_#{n}"] }
