@@ -1,3 +1,7 @@
+## 0.4.4
+
+* Revert memoization `Cog::Request#input`.
+
 ## 0.4.3
 
 * Memoize Cog::Request.input as a class variable so that we don't try
