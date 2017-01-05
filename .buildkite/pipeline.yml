@@ -1,0 +1,15 @@
+steps:
+
+  - block: ":rubygems: Release?"
+    prompt: "One day, we'll release all the time, like good devops. Until then, we'll give ourselves an option."
+    fields:
+      - select: "Do you want to release this to Rubygems?"
+        key: "rubygems-release-confirmation"
+        options:
+          - label: "Yup, release it!"
+            value: "yes"
+          - label: "Nope, not just now"
+            value: "no"
+
+  - label: "Maybe Release"
+    command: echo "Would we release? $(buildkite-agent meta-data get rubygems-release-confirmation)"
