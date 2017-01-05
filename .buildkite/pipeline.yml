@@ -13,3 +13,5 @@ steps:
 
   - label: "Maybe Release"
     command: echo "Would we release? $(buildkite-agent meta-data get rubygems-release-confirmation)"
+    agents:
+      queue: beta
