@@ -8,6 +8,7 @@ require_relative 'cog/response'
 require_relative 'cog/version'
 
 require_relative 'cog/service'
+require_relative 'cog/services/chat'
 require_relative 'cog/services/memory'
 require_relative 'cog/services/metadata'
 
